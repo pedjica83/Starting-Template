@@ -1,0 +1,26 @@
+{% load allauth %}
+{% load widget_tweaks %}
+{% for field in attrs.form %}
+    <div class="mb-3">
+        <label class="mb-2 text-sm font-medium text-gray-900 dark:text-white" for="{{ field.id_for_label }}">
+            {{ field.label }}
+        </label>
+        {% if field.name == 'remember' %}
+        {{ field|append_attr:'class:w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600' }}
+        {% else %}
+        {{ field|append_attr:'class:border border-gray-300 text-gray-900 dark:text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' }}
+        {% endif %}
+        {% if field.help_text %}
+            <p class="text-sm mt-2 text-blue-600">{{ field.help_text }}</p>
+        {% endif %}
+        {% for error in field.errors %}
+            <div class="text-sm text-red-600">{{ error }}</div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+    <div class="text-sm text-red-600">
+        {% for err in attrs.form.non_field_errors %}
+            <p class="mb-2">{{err}}</p>
+        {% endfor %}
+    </div>
+
